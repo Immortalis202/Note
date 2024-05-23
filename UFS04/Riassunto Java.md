@@ -36,10 +36,10 @@ Interpretazione JIT -> linugaggio macchina
 ## Variabili e operatori
 
 - Casting implicito, che avviene in modo automatico da parte del compilatore in caso di conversioni lossless. 
-- ![[Pasted image 20240414152608.png]]
+- ![upcast](upcast.png)
 - 
 - Casting esplicito, che deve essere svolto manualmente dal programmatore in caso di conversioni lossy.
-- ![[Pasted image 20240414152843.png]]
+- ![downcast](downcast.png)
 
 - Costanti, dichiarate in maiuscolo con final,  
 
