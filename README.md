@@ -4,7 +4,7 @@
 ### UFS02
 ### UFS03
 ### UFS04
-[https://github.com/Immortalis202/Note/blob/main/UFS04/Riassunto%20Java.md] (Riassunto)
+[Riassunto](https://github.com/Immortalis202/Note/blob/main/UFS04/Riassunto%20Java.md)
 ### UFS05
 ### UFS06
 ### UFS07
