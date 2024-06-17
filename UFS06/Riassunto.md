@@ -69,7 +69,7 @@ throws serve a indicare che un metodo puo' fallire e deve essere seguito dai tip
 	- Gestiti in modo esplicito
 	- RuntimeException
 	
-![[Pasted image 20240616155019.png]]
+![error](error.png)
 
 
 ## I/O
