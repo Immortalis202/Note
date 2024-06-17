@@ -7,6 +7,7 @@
 [Riassunto](https://github.com/Immortalis202/Note/blob/main/UFS04/Riassunto%20Java.md)
 ### UFS05
 ### UFS06
+[Riassunto](https://github.com/Immortalis202/Note/blob/main/UFS06/Riassunto.md)
 ### UFS07
 ### UFS08
 ### UFS09
