@@ -194,7 +194,7 @@ B --> A
 
 Il factory pattern permette di creare nuovi oggetti senza dover specificare la propria classe, questo avviene perche' viene chiamato un `factory method` invece di un costruttore
 
-![[FactoryPattern.png]]
+![Factory](FactoryPattern.png)
 
 ```java
 public interface Shape {
@@ -251,7 +251,7 @@ public class ShapeFactory {
 ### Abstract Factory Pattern
 Funziona come il factory pattern ma al posto di creare nuovi oggetti crea nuove factory
 
-![[AbstractFactoryPattern.png]]
+![AFP](AbstractFactoryPattern.png)
 
 ```java
 //Shape interface
@@ -716,7 +716,7 @@ Uno dei pattern piu' diffusi nella OOP e GUI poiche' aumenta la coesione -> ogni
 	- Puo' avere relazioni arbitrarie tra oggetti modelli e viste (1:1 fino N:N)
 	- Il controllore inizializza la vista con i dati contenuti nel modello, e informare le modifiche dei dati
 
-![[MVC.png]]
+![MVC](MVC.png)
 
 
 ## Database
