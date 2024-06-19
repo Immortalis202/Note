@@ -190,8 +190,166 @@ U4 --> B
 B --> A
 ```
 
+### Factory Pattern 
 
-Aggiungere Altri design pattern
+Il factory pattern permette di creare nuovi oggetti senza dover specificare la propria classe, questo avviene perche' viene chiamato un `factory method` invece di un costruttore
+
+![[FactoryPattern.png]]
+
+```java
+public interface Shape {
+   void draw();
+}
+
+public class Rectangle implements Shape {
+
+   @Override
+   public void draw() {
+      System.out.println("Inside Rectangle::draw() method.");
+   }
+}
+
+public class Square implements Shape {
+
+   @Override
+   public void draw() {
+      System.out.println("Inside Square::draw() method.");
+   }
+}
+
+public class Circle implements Shape {
+
+   @Override
+   public void draw() {
+      System.out.println("Inside Circle::draw() method.");
+   }
+}
+
+public class ShapeFactory {
+	
+   //use getShape method to get object of type shape public Shape getShape(String shapeType){
+      if(shapeType == null){
+         return null;
+      }		
+      if(shapeType.equalsIgnoreCase("CIRCLE")){
+         return new Circle();
+         
+      } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
+         return new Rectangle();
+         
+      } else if(shapeType.equalsIgnoreCase("SQUARE")){
+         return new Square();
+      }
+      
+      return null;
+   }
+}
+
+```
+
+
+### Abstract Factory Pattern
+Funziona come il factory pattern ma al posto di creare nuovi oggetti crea nuove factory
+
+![[AbstractFactoryPattern.png]]
+
+```java
+//Shape interface
+public interface Shape {
+   void draw();
+}
+//--------------CLASSI CONCRETE--------------//
+public class RoundedRectangle implements Shape {
+   @Override
+   public void draw() {
+      System.out.println("Inside RoundedRectangle::draw() method.");
+   }
+}
+
+public class RoundedSquare implements Shape {
+   @Override
+   public void draw() {
+      System.out.println("Inside RoundedSquare::draw() method.");
+   }
+}
+
+public class Rectangle implements Shape {
+   @Override
+   public void draw() {
+      System.out.println("Inside Rectangle::draw() method.");
+   }
+}
+
+
+//---------------FACTORY PER NORMAL O ROUNDED SHAPES-----------//
+public abstract class AbstractFactory {
+   abstract Shape getShape(String shapeType) ;
+}
+
+//-------------CLASSI FACTORY PER CREARE OGGETTI CONCRETI---------//
+public class ShapeFactory extends AbstractFactory {
+   @Override
+   public Shape getShape(String shapeType){    
+      if(shapeType.equalsIgnoreCase("RECTANGLE")){
+         return new Rectangle();         
+      }else if(shapeType.equalsIgnoreCase("SQUARE")){
+         return new Square();
+      }	 
+      return null;
+   }
+}
+
+public class RoundedShapeFactory extends AbstractFactory {
+   @Override
+   public Shape getShape(String shapeType){    
+      if(shapeType.equalsIgnoreCase("RECTANGLE")){
+         return new RoundedRectangle();         
+      }else if(shapeType.equalsIgnoreCase("SQUARE")){
+         return new RoundedSquare();
+      }	 
+      return null;
+   }
+}
+
+//-------FACTORY PRODUCER PER GENERARE LE FACTORY------------//
+public class FactoryProducer {
+   public static AbstractFactory getFactory(boolean rounded){   
+      if(rounded){
+         return new RoundedShapeFactory();         
+      }else{
+         return new ShapeFactory();
+      }
+   }
+}
+
+//----------------IMPLEMENTAZIONE----------------------//
+
+public class AbstractFactoryPatternDemo {
+   public static void main(String[] args) {
+      //get shape factory
+      AbstractFactory shapeFactory = FactoryProducer.getFactory(false);
+      //get an object of Shape Rectangle
+      Shape shape1 = shapeFactory.getShape("RECTANGLE");
+      //call draw method of Shape Rectangle
+      shape1.draw();
+      //get an object of Shape Square Shape shape2 = shapeFactory.getShape("SQUARE");
+      //call draw method of Shape Square
+      shape2.draw();
+      //get shape factory
+      AbstractFactory shapeFactory1 = FactoryProducer.getFactory(true);
+      //get an object of Shape Rectangle
+      Shape shape3 = shapeFactory1.getShape("RECTANGLE");
+      //call draw method of Shape Rectangle
+      shape3.draw();
+      //get an object of Shape Square Shape shape4 = shapeFactory1.getShape("SQUARE");
+      //call draw method of Shape Square
+      shape4.draw();
+      
+   }
+}
+```
+
+
 
 ## Interfacce
 
@@ -542,3 +700,135 @@ I tipi di dati supportati da questo formato sono:
 - array: sequenze ordinate di valori, separati da virgole e racchiusi in parentesi quadre [ ]
 - array associativi: sequenze coppie chiave-valore separate da virgole racchiuse in parentesi
 graffe { }
+
+
+## Pattern Architetturali
+
+### Model-View-Controller (MVC)
+
+Uno dei pattern piu' diffusi nella OOP e GUI poiche' aumenta la coesione -> ogni oggetto puo' ricoprire solo uno dei modelli di: ruolo, vista o controllore. Essi sono logicamente separati ma possono comunicare tra loro
+- Model: contiene i dati specifici dell'applicazione e definisce tutte le varie procedure che effettuano manipolazione dei dati in lettura o scrittura. Non ha connessione diretta con un oggetto di tipo view, in quanto ha il compito di gestire dati che non devono essere legati a delle visualizzazioni particolari
+- View: ha il compito di presentare all'utente i dati contenuti all'interno di un modello. 
+	- Il modello di un oggetto non e' concreto mentra la view e' qualcosa con il quale l'utente puo' interagire
+	- Mette a disposizione un'interfaccia per la modifica dei dati contenuti nei modelli
+	- La vista non deve avere un riferimento esplicito a un modello
+- Controllore: Intermediario tra vista e modelli
+	- Puo' avere relazioni arbitrarie tra oggetti modelli e viste (1:1 fino N:N)
+	- Il controllore inizializza la vista con i dati contenuti nel modello, e informare le modifiche dei dati
+
+![[MVC.png]]
+
+
+## Database
+
+Collezione di dati che viene gestita e organizzata da un DBMS
+
+La rappresentazioni logica dei dati in un database o "Schema del database"
+
+- Gerarchici: relazioni di possesso tra dati, un insieme di dati puo' possedere altri insiemi di dati ma un un insieme di dati puo' appartenere solo ad un altro insieme 
+- Reticolari: uguale al gerarchico senza la restrizione di appartenza ad un solo insieme
+- Relazionali: Righe Colonne 
+- Ad oggetti: Schema dei dati e' un insieme di classi che definiscono il comportamento degli oggetti. I dati non sono passivi come negli altri database
+
+
+### DAO 
+Data-access Object e' un pattern architetturale per la gestione della persistenza, si tratta
+fondamentalmente di una classe con relativi metodi che rappresenta un'entità tabellare di un RDBMS,
+usata principalmente in applicazioni web sia di tipo Java EE sia di tipo EJB, per stratificare e isolare
+l'accesso ad una tabella tramite query (poste all'interno dei metodi della classe) ovvero al data layer
+da parte della business logic creando un maggiore livello di astrazione ed una più facile manutenibilità.
+
+Il DAO permette di tenere separate le componenti di una applicazione
+
+
+### DB in JAVA
+
+La tecnologia Java ha ottenuto anche molto successo grazie all'accesso al Database JDBC,
+concorrenziale all'ormai noto ODBC.
+Nell'ottica multipiattaforma le connessioni JDBC sono studiate per potersi collegare a qualsiasi motore
+database, indipendentemente da esso e dalla piattaforma di utilizzo.
+JDBC è l'acronimo di Java DataBase Connectivity: 
+- Connection
+- Driver
+- Statement
+- PreparedStatement
+- CallableStatement
+- ResultSet
+- ResultSetMetaData
+- DatabaseMetaData
+
+
+Passi essenziali
+- Caricare Driver
+- Aprire connessione al database
+- Creare oggetto Statement
+- Interagire con il DB
+- Gestire risultati della ResultSet
+
+
+```java
+import java.sql.*;
+
+public class ProvaJDBC {
+	public static void main (String args[]){
+		try {
+			String driver = “com.mysql.jdbc.Driver”;
+			Class.forName(driver);
+			String url = “jdbc:mysql://172.16.94.50/databaseName”;
+			Connection con = DriverManager.getConnection(url, "corsojava", "javapassword");
+			Statement cmd = con.createStatement();
+			String query = "SELECT * FROM nomeTabella";
+			ResultSet res = cmd.executeQuery(query);
+			while (res.next()) {
+				System.out.println(res.getString("nomeColonna1"));
+				System.out.println(res.getString("nomeColonna2"));
+			}
+			res.close(); // chiudere le risorse DB è obbligatorio
+			cmd.close();
+			con.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}catch (ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+executeQuery() di Statement e' possibile eseguire Query che vengono salvate su un ResultSet
+`next()` molto importante per scorrere il risultato della query
+`close()` per ogni oggetto aperto, ResultSet, Statement e Connection
+`SQLException()` per errori di SQL
+
+
+## GUI
+
+### Frame
+Un frame e' una superficie rettangolare provvista di una barre del titolo con titolo, icone e i tasti funzione della finestra
+
+JFrame permette di avere diversi pannelli nello stesso frame
+- Root Pane, il piu' basso
+- Glass Pane => cattura le azioni del mouse
+- Layered Pane => contiene il menu e il content Pane
+- Content Pane => contiene gli elementi della GUI
+
+Chiusura finestra => `setDefaultCloseOperation(int type)` oppure con `setDefaultCLoseOperation(JFrame.EXIT_ON_CLOSE)`
+
+
+### Toolkit
+
+`getDefaultToolkit()` per ottenere l'istanza del toolkit con cui otteniamo informazioni sulle caratteristiche del dispositivo
+`Dimension getScreenSize()` => restituisce le dimensioni dello schermo in pixel da cui possiamo ottenere `getHeight()` e `getWidth()`
+
+### Menu 
+Il menu non va aggiunto al content pane di un jFrame, ma direttamente al JFrame tramite `void setjMenuBar(jMenuBar jmb)` 
+Il menu e' una struttura gerarchica con menu' che contengono menu'
+
+### Layout
+Oggetto che permette di disporre gli elementi della GUI dentro i container. Suddivide la finestra in zone e permette di inserire in zone specifiche gli elementi
+`void setLayout(LayoutManager Im)` con le seguenti classi:
+- `FlowLayout` riempe da sinistra a destra riempendo le righe
+- `FlowLayout()`
+- `FlowLayout(int align)`
+- `FlowLayout(int align, int hgap, int vgap)`, align assume `LEFT,CENTER,RIGHT`
+- `BorderLayout` suddivide il contenitore in zone (`North, South, East, West, Center`)
