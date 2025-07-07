@@ -1,4 +1,11 @@
 # Riassunti Lezioni per Esame
+## TODO
+- [] Swift
+- [] Android
+- [] React
+- [] SpringBoot
+- [] Windows
+
 ## UFS
 ### UFS01
 ### UFS02
